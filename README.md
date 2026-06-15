@@ -68,8 +68,7 @@ Body:
       "currency": "GBP"
     }
   ],
-  "successUrl": "http://localhost:3000/payment-success",
-  "cancelUrl": "http://localhost:3000/payment-cancelled"
+  "returnUrl": "http://localhost:3000/payment-status"
 }
 ```
 
@@ -80,6 +79,26 @@ Response:
   "invoiceId": "...",
   "checkoutUrl": "..."
 }
+```
+
+Testing with cURL:
+
+```sh
+curl \
+  -X POST \
+  http://localhost:8787/invoice \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cart": [
+      {
+        "pvk":"hoodie-black",
+        "qty":2,
+        "price":39.99,
+        "currency":"GBP"
+      }
+    ],
+    "returnUrl":"http://localhost:3000/payment-status"
+  }'
 ```
 
 ## Get Invoice Status

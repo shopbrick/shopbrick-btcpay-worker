@@ -13,8 +13,7 @@ interface CartItem {
 
 interface CreateInvoiceRequest {
   cart: CartItem[]
-  successUrl: string
-  cancelUrl: string
+  returnUrl: string
 }
 
 export default {
@@ -88,7 +87,7 @@ async function createInvoice(
 
         checkout: {
           redirectURL:
-            body.successUrl,
+            body.returnUrl,
 
           redirectAutomatically:
             true
