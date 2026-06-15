@@ -16,11 +16,43 @@ interface CreateInvoiceRequest {
   returnUrl: string
 }
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods':
+    'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers':
+    'Content-Type, Authorization'
+}
+
+function jsonResponse(
+  data: unknown,
+  status = 200
+): Response {
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
+      headers: {
+        'Content-Type':
+          'application/json',
+
+        ...corsHeaders
+      }
+    }
+  )
+}
+
 export default {
   async fetch(
     request: Request,
     env: Env
   ): Promise<Response> {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: corsHeaders
+      })
+    }
+
     const url = new URL(request.url)
 
     if (
@@ -41,7 +73,8 @@ export default {
     }
 
     return new Response('Not found', {
-      status: 404
+      status: 404,
+      headers: corsHeaders
     })
   }
 }
@@ -99,11 +132,19 @@ async function createInvoice(
   const invoice =
     await response.json<any>()
 
-  return Response.json({
+  const self =
+    new URL(request.url)
+
+  const statusUrl =
+    `${self.origin}/invoice/${invoice.id}`
+
+  return jsonResponse({
     invoiceId: invoice.id,
 
     checkoutUrl:
-      invoice.checkoutLink
+      invoice.checkoutLink,
+    
+    statusUrl
   })
 }
 
@@ -124,7 +165,7 @@ async function getInvoice(
   const invoice =
     await response.json<any>()
 
-  return Response.json({
+  return jsonResponse({
     invoiceId: invoice.id,
     status: invoice.status,
     metadata: invoice.metadata

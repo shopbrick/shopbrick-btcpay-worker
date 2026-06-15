@@ -77,7 +77,8 @@ Response:
 ```json
 {
   "invoiceId": "...",
-  "checkoutUrl": "..."
+  "checkoutUrl": "...",
+  "statusUrl": "..."
 }
 ```
 
