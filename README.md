@@ -122,7 +122,7 @@ Response:
 
 ## Production Deployment
 
-Login:
+Login to Cloudflare:
 
 ```bash
 npx wrangler login
@@ -132,6 +132,36 @@ Configure secrets:
 
 ```bash
 npx wrangler secret put BTCPAY_API_KEY
+```
+
+Configure non-secret variables in `wrangler.jsonc`:
+
+```jsonc
+{
+  "vars": {
+    "BTCPAY_URL": "https://btcpay.example.com",
+    "BTCPAY_STORE_ID": "xxxxxxxx"
+  }
+}
+```
+
+Example:
+
+```jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "shopbrick-btcpay-worker",
+
+  "main": "src/index.ts",
+
+  "compatibility_date": "2025-01-01",
+
+  "vars": {
+    "BTCPAY_URL": "https://btcpay.example.com",
+    "BTCPAY_STORE_ID": "xxxxxxxx"
+  }
+}
 ```
 
 Deploy:
@@ -145,6 +175,24 @@ Cloudflare will return a URL similar to:
 ```text
 https://shopbrick-btcpay-worker.your-subdomain.workers.dev
 ```
+
+### Production Variables
+
+| Variable          | Description                             | Example                       |
+| ----------------- | --------------------------------------- | ----------------------------- |
+| `BTCPAY_URL`      | BTCPay Server URL                       | `https://btcpay.example.com`  |
+| `BTCPAY_STORE_ID` | BTCPay Store ID                         | `xxxxxxxx`                    |
+| `BTCPAY_API_KEY`  | BTCPay API Key with invoice permissions | Stored as a Cloudflare Secret |
+
+### Viewing Current Configuration
+
+View deployed variables:
+
+```bash
+npx wrangler versions secret list
+```
+
+and inspect your local `wrangler.jsonc` for non-secret variables.
 
 ## ShopBrick Configuration
 
