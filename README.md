@@ -148,10 +148,8 @@ https://shopbrick-btcpay-worker.your-subdomain.workers.dev
 
 ## ShopBrick Configuration
 
-```yaml
-payments:
-  provider: btcpay
+Add URL of the BTCPay worker into ShopBrick's `config/production.yml` and `config/test.yml`
 
-  worker_url: >
-    https://shopbrick-btcpay-worker.your-subdomain.workers.dev
+```yaml
+btcPayWorkerUrl: https://shopbrick-btcpay-worker.your-subdomain.workers.dev
 ```
