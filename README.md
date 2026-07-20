@@ -201,3 +201,76 @@ Add URL of the BTCPay worker into ShopBrick's `config/production.yml` and `confi
 ```yaml
 btcPayWorkerUrl: https://shopbrick-btcpay-worker.your-subdomain.workers.dev
 ```
+
+## Deploying on Your Own Server (VPS)
+
+Cloudflare Workers are the recommended deployment target because they are lightweight, globally distributed, and offer a generous free tier. However, they are **not required**.
+
+The ShopBrick BTCPay integration is based on two simple HTTP endpoints:
+
+```http
+POST /invoice
+GET /invoice/:id
+```
+
+This repository provides a Cloudflare Workers implementation. The same API can easily be implemented using Express, Fastify, Rails, Go, or any other HTTP framework, including:
+
+* Node.js + Express
+* Fastify
+* Koa
+* Ruby on Rails
+* Sinatra
+* Go
+* Python (Flask / FastAPI)
+* ASP.NET Core
+* Java (Spring Boot)
+* PHP (Laravel, Symfony)
+* Docker container
+* VPS
+* Any serverless platform (AWS Lambda, Google Cloud Run, Azure Functions, Netlify Functions, Vercel Functions, etc.)
+
+The application only requires three environment variables:
+
+```text
+BTCPAY_URL=https://btcpay.example.com
+BTCPAY_STORE_ID=xxxxxxxx
+BTCPAY_API_KEY=xxxxxxxx
+```
+
+Your implementation should expose the same API contract:
+
+### Create Invoice
+
+```http
+POST /invoice
+```
+
+Response:
+
+```json
+{
+  "invoiceId": "...",
+  "checkoutUrl": "...",
+  "statusUrl": "..."
+}
+```
+
+### Get Invoice Status
+
+```http
+GET /invoice/:id
+```
+
+Response:
+
+```json
+{
+  "invoiceId": "...",
+  "status": "Settled",
+  "metadata": {}
+}
+```
+
+As long as your server implements this API, ShopBrick will work without any modifications.
+
+This repository provides a Cloudflare Workers implementation. The same API can be implemented on any backend platform (Express, Fastify, Rails, Go, PHP, etc.) by exposing the same `/invoice` and `/invoice/:id` endpoints.
