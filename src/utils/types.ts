@@ -4,7 +4,7 @@ export interface Env {
   BTCPAY_API_KEY: string
 }
 
-interface CartItem {
+export interface CartItem {
   pvk: string
   qty: number
   price: number
