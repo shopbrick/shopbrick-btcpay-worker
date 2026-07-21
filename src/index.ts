@@ -1,6 +1,6 @@
 // Cloudflare adapter
 import { handleCreateInvoice, handleGetInvoice } from './routes/invoice'
-import { Env } from './utils/types'
+import { Env } from './types'
 import { corsHeaders } from './utils/cors'
 
 export default {

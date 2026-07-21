@@ -1,4 +1,4 @@
-# shopbrick-btcpay-worker
+# shopbrick-btcpay-worker ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Cloudflare Worker that allows ShopBrick to create and query BTCPay Server invoices without exposing BTCPay API credentials to the browser.
 
@@ -215,7 +215,7 @@ GET /invoice/:id
 
 This repository provides a Cloudflare Workers implementation. The same API can easily be implemented using Express, Fastify, Rails, Go, or any other HTTP framework, including:
 
-* Node.js + Express
+* [Node.js + Express](https://github.com/shopbrick/shopbrick-btcpay-express)
 * Fastify
 * Koa
 * Ruby on Rails
@@ -274,3 +274,9 @@ Response:
 As long as your server implements this API, ShopBrick will work without any modifications.
 
 This repository provides a Cloudflare Workers implementation. The same API can be implemented on any backend platform (Express, Fastify, Rails, Go, PHP, etc.) by exposing the same `/invoice` and `/invoice/:id` endpoints.
+
+## Need a VPS instead of Cloudflare Workers?
+
+➡ shopbrick-btcpay-express (Node.js + Express)
+
+https://github.com/shopbrick/shopbrick-btcpay-express

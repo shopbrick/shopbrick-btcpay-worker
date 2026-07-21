@@ -1,5 +1,5 @@
 // HTTP handlers
-import { CreateInvoiceRequest, Env } from '../utils/types'
+import { CreateInvoiceRequest, Env } from '../types'
 import { btcpayCreateInvoice, btcpayGetInvoice } from '../services/btcpay'
 import { calculateCartTotal } from '../utils/cart'
 import { jsonResponse } from '../utils/response'
@@ -15,7 +15,7 @@ export async function handleCreateInvoice(request: Request, env: Env): Promise<R
   return jsonResponse({
     invoiceId: invoice.id,
     checkoutUrl: invoice.checkoutLink,
-    statusUrl: buildStatusUrl(request, invoice.id)
+    statusUrl: buildStatusUrl(new URL(request.url).origin, invoice.id)
   })
 }
 

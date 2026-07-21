@@ -1,5 +1,5 @@
 // BTCPay REST client
-import { CreateInvoiceRequest, Env } from '../utils/types'
+import { CreateInvoiceRequest, Env } from '../types'
 
 interface BTCPayInvoice {
   id: string
@@ -45,7 +45,7 @@ export async function btcpayGetInvoice(invoiceId: string, env: Env): Promise<BTC
   return response.json<BTCPayInvoice>()
 }
 
-function buildInvoicePayload(body: CreateInvoiceRequest, total: number, currency: string) {
+export function buildInvoicePayload(body: CreateInvoiceRequest, total: number, currency: string) {
   return {
     amount: total.toFixed(2),
     currency,
